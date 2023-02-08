@@ -1,5 +1,5 @@
 # dart_naver_papago
- A unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
+A unofficial package for using Naver Papago translation, language detection, romanization api.
 
 - Naver Papago api
     - Translation
