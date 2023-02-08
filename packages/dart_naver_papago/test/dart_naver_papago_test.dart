@@ -51,7 +51,8 @@ void main() {
       NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret);
     });
     test('Get Language code', () async {
-      final result = await LanguageDetection.detectLanguage(".");
+      final result = await LanguageDetection.detectLanguage("안녕하세요.");
+      print(result.langCode);
       expect(result, isA<LanguageDetectionResponse>());
     });
   });

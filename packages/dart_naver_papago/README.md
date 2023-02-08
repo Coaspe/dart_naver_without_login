@@ -1,39 +1,55 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# dart_naver_papago
+ A unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+- Naver Papago api
+    - Translation
+    - Language detection
+    - Romanization
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+Added more soon
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Requirements
 
-## Features
+Here is what you need to use the Dart SDK:
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Dart 2.19.0 or higher
 
-## Getting started
+## Exmaple
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+First, generate [Naver client id and client secret](https://developers.naver.com/main/).
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Initialize `NaverWithoutLoginApi` with your api key.
 
 ```dart
-const like = 'sample';
+NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret)
+```
+Use `APIname.queryFunction` form to call query function.
+
+You can check [available api](https://developers.naver.com/docs/common/openapiguide/).
+
+### Papago api
+
+```dart
+/// Translate Korean to English
+///
+/// Returns PapagoResponseMessage
+final result = await PapagoTranslation.getTranslation(LangCode.ko, LangCode.en, "안녕하세요");
+print(result.getText); // Print Hello
+
+/// Detect language code
+///
+/// Returns LanguageDetectionResponse
+final result = await LanguageDetection.detectLanguage("안녕하세요");
+print(result.langCode); // Print LangCode.ko
+
+/// Name romanization
+///
+/// Returns RomanizationResponse
+final result = await Romanization.romanization("강형욱");
 ```
 
-## Additional information
+## pub.dev
+- [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
+- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Documentation comment will be added gradually 😀

@@ -1,4 +1,4 @@
-library naver_papago;
+library dart_naver_papago;
 
 export 'src/service.dart';
 export 'src/model.dart';
