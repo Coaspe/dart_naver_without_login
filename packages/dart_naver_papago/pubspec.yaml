@@ -1,5 +1,5 @@
 name: dart_naver_papago
-description: A unofficial package for using Naver Papago translation, language detection, romanization api.
+description: An unofficial package for using Naver Papago translation, language detection, romanization api.
 version: 0.0.2
 repository: https://github.com/Coaspe/dart_naver_without_login
 

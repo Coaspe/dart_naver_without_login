@@ -1,5 +1,5 @@
 # dart_naver_papago
-A unofficial package for using Naver Papago translation, language detection, romanization api.
+An unofficial package for using Naver Papago translation, language detection, romanization api.
 
 - Naver Papago api
     - Translation

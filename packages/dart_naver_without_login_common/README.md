@@ -1,5 +1,5 @@
 # dart_naver_without_login_common
-A unofficial package contains common features for Naver apis that do not require login in Dart language.
+An unofficial package contains common features for Naver apis that do not require login in Dart language.
 This pacakge is just a supplementary pacakge for other pacakges. So it doest not contains any api call.
 
 ## Requirements

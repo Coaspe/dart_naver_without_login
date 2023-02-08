@@ -1,5 +1,5 @@
 # dart_naver_without_login_api
- A unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
+ An unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
 
 - Naver Papago api
     - Translation
