@@ -4,9 +4,7 @@ import 'package:dart_naver_without_login_common/dart_naver_without_login_common.
 import 'model/papago_response.dart';
 
 class PapagoTranslation {
-  /// Get a champion mastery by player ID and champion ID
-  ///
-  /// text's language detection added soon.
+  /// Get a translation text source to target
   static Future<PapagoResponseMessage> getTranslation(
       LangCode src, LangCode tar, String text,
       {Map<String, String>? headers}) async {
