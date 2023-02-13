@@ -6,6 +6,8 @@
 
 Unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
 
+These pacakages aren't endorsed by [Naver](https://naver.com) and don't reflect the views or opinions of Naver or anyone officially involved in producing or managing Naver properties.
+
 - Naver Papago api
     - Translation
     - Language detection
