@@ -1,4 +1,5 @@
 # dart_naver_without_login_api
+
 <p align="center">
 <img width="811" alt="스크린샷 2023-02-13 오후 6 06 30" src="https://user-images.githubusercontent.com/76432686/218416118-ac60bfbf-264d-4fce-9277-209dfcd8ecaf.png">
 </p>
@@ -54,8 +55,25 @@ print(result.langCode); // Print LangCode.ko
 final result = await Romanization.romanization("강형욱");
 ```
 
+### Clova face recognition
+
+```dart
+/// Recognize celebrity with given Uint8List image.
+///
+/// Returns CelebrityResponse
+final result = await CelebrityRecognition.recognizeCelebrity(await io.File('your-image-path').readAsBytes())
+print(result.runtimeType); // Print CelebrityResponse
+
+/// Recognize face with given Uint8List image.
+///
+/// Returns FaceResponse
+final result = await FaceRecognition.recognizeFace(await io.File('your-image-path').readAsBytes());
+print(result.runtimeType); // Print FaceResponse
+```
+
 ## pub.dev
-- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
 - [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
+- [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
+- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
 
 Documentation comment will be added gradually 😀

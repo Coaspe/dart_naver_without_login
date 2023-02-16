@@ -1,6 +1,4 @@
-import 'package:dart_naver_papago/src/constants.dart';
-import 'package:dart_naver_papago/src/language_detection/model/language_detection_response.dart';
-import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
+import 'package:dart_naver_papago/dart_naver_papago.dart';
 
 class LanguageDetection {
   static Future<LanguageDetectionResponse> detectLanguage(String text,

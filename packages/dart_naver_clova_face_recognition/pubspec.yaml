@@ -1,7 +1,7 @@
-name: dart_naver_papago
-description: An unofficial package for using Naver Papago translation, language detection, romanization api.
-version: 0.0.4
-repository: https://github.com/Coaspe/dart_naver_without_login
+name: dart_naver_clova_face_recognition
+description: An unofficial package for using Naver Clova face recognition, celebrity recognition.
+version: 0.0.1
+repository: https://github.com/Coaspe/dart_naver_clova_face_recognition
 
 environment:
   sdk: '>=2.19.0 <3.0.0'

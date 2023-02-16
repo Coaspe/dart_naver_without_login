@@ -1,4 +1,3 @@
-import 'package:dart_naver_papago/src/constants.dart';
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
 
 import 'model/romanization_response.dart';

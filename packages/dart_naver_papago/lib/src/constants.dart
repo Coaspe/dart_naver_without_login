@@ -1,12 +1,5 @@
 import 'enums.dart';
 
-class ServerHost {
-  static const baseHost = "https://openapi.naver.com";
-  static const papagoTranslation = "$baseHost/v1/papago/n2mt";
-  static const languageDetection = "$baseHost/v1/papago/detectLangs";
-  static const romanization = "$baseHost/v1/krdict/romanization";
-}
-
 const Map<LangCode, Set<LangCode>> possibleSrcToTar = {
   LangCode.ko: {
     LangCode.en,

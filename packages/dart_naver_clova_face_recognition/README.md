@@ -1,10 +1,9 @@
-# dart_naver_papago
-An unofficial package for using Naver Papago translation, language detection, romanization api.
+# dart_naver_clova_face_recognition
+An unofficial package for using Naver Clova face recognition, celebrity recognition.
 
-- Naver Papago API
-    - Translation
-    - Language detection
-    - Romanization
+- Naver Clova face recognition API
+    - Celebrity recognition
+    - Face recognition
 
 ## Requirements
 
@@ -26,22 +25,17 @@ Use `APIname.queryFunction` form to call query function.
 You can check [available API](https://developers.naver.com/docs/common/openapiguide/).
 
 ```dart
-/// Translate Korean to English
+/// Recognize celebrity with given Uint8List image.
 ///
-/// Returns PapagoResponseMessage
-final result = await PapagoTranslation.getTranslation(LangCode.ko, LangCode.en, "안녕하세요");
-print(result.getText); // Print Hello
+/// Returns CelebrityResponse
+final result = await CelebrityRecognition.recognizeCelebrity(await io.File('your-image-path').readAsBytes())
+print(result.runtimeType); // Print CelebrityResponse
 
-/// Detect language code
+/// Recognize face with given Uint8List image.
 ///
-/// Returns LanguageDetectionResponse
-final result = await LanguageDetection.detectLanguage("안녕하세요");
-print(result.langCode); // Print LangCode.ko
-
-/// Name romanization
-///
-/// Returns RomanizationResponse
-final result = await Romanization.romanization("강형욱");
+/// Returns FaceResponse.
+final result = await FaceRecognition.recognizeFace(await io.File('your-image-path').readAsBytes());
+print(result.runtimeType); // Print FaceResponse
 ```
 
 ## pub.dev

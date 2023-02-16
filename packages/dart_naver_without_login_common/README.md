@@ -10,6 +10,7 @@ Here is what you need to use the Dart SDK:
 
 ## pub.dev
 - [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
+- [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
 - [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
 
 Documentation comment will be added gradually 😀
