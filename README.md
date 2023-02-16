@@ -5,14 +5,18 @@
 </p>
 
 
-Unofficial packages provide easy way to use Naver apis that do not require login in Dart language.
+Unofficial packages provide easy way to use Naver APIs that do not require login in Dart language.
 
 These pacakages aren't endorsed by [Naver](https://naver.com) and don't reflect the views or opinions of Naver or anyone officially involved in producing or managing Naver properties.
 
-- Naver Papago api
+- Naver Papago API
     - Translation
     - Language detection
     - Romanization
+
+- Naver Clova face recognition API
+    - Celebrity recognition
+    - Face recognition
 
 Added more soon
 
@@ -26,15 +30,15 @@ Here is what you need to use the Dart SDK:
 
 First, generate [Naver client id and client secret](https://developers.naver.com/main/).
 
-Initialize `NaverWithoutLoginApi` with your api key.
+Initialize `NaverWithoutLoginApi` with your API key.
 ```dart
 NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret)
 ```
 Use `APIname.queryFunction` form to call query function.
 
-You can check [available api](https://developers.naver.com/docs/common/openapiguide/).
+You can check [available API](https://developers.naver.com/docs/common/openapiguide/).
 
-### Papago api
+### Papago API
 
 ```dart
 /// Translate Korean to English
@@ -55,7 +59,7 @@ print(result.langCode); // Print LangCode.ko
 final result = await Romanization.romanization("강형욱");
 ```
 
-### Clova face recognition
+### Clova face recognition API
 
 ```dart
 /// Recognize celebrity with given Uint8List image.
