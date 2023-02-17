@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:dart_naver_papago/src/constants.dart';
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
 
 void main() async {

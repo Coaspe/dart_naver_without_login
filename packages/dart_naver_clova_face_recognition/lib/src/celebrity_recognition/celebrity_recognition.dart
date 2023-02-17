@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:dart_naver_clova_face_recognition/src/celebrity_recognition/model/celebrity_response.dart';
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
 
