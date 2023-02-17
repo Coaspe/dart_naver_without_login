@@ -5,7 +5,7 @@
 </p>
 
 
-Unofficial packages provide easy way to use Naver APIs that do not require login in Dart language.
+Unofficial packages provide easy way to use Naver APIs that do not require login written in Dart language.
 
 These packages aren't endorsed by [Naver](https://naver.com) and don't reflect the views or opinions of Naver or anyone officially involved in producing or managing Naver properties.
 
