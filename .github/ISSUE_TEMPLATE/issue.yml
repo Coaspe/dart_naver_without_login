@@ -5,9 +5,7 @@ body:
     id: Source
     attributes:
       label: Source
-      placeholder: "Example: champion_v3.dart"
-      validations:
-        required: true
+      placeholder: "Example: face_response.dart"
   - type: textarea
     id: problem
     attributes:
