@@ -1,6 +1,7 @@
 import 'package:dart_naver_papago/dart_naver_papago.dart';
 
 class LanguageDetection {
+  /// Detects language by given text
   static Future<LanguageDetectionResponse> detectLanguage(String text,
       {Map<String, String>? headers}) async {
     final body = <String, String>{"query": text};

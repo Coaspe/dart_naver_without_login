@@ -4,7 +4,7 @@ import 'package:dart_naver_clova_face_recognition/src/face_recognition/model/fac
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
 
 class FaceRecognition {
-  /// Recognize face with given Uint8List image.
+  /// Recognize face with given [Uint8List] image.
   ///
   /// Returns FaceResponse. The size of [image] must be smaller than 2MB.
   static Future<FaceResponse> recognizeFace(Uint8List image,

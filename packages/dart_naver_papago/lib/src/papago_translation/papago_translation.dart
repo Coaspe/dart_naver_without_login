@@ -4,7 +4,7 @@ import 'package:dart_naver_without_login_common/dart_naver_without_login_common.
 import 'model/papago_response.dart';
 
 class PapagoTranslation {
-  /// Get a translation text source to target
+  /// Get a translated text source to target
   static Future<PapagoResponseMessage> getTranslation(
       LangCode src, LangCode tar, String text,
       {Map<String, String>? headers}) async {
@@ -25,6 +25,7 @@ class PapagoTranslation {
     return message.message;
   }
 
+  /// Check whether Papago supports [src] to [tar] translation.
   static bool checkTranslatable(LangCode src, LangCode tar) =>
       possibleSrcToTar.containsKey(src) && possibleSrcToTar[src]!.contains(tar);
 }
