@@ -4,19 +4,26 @@
 <img width="811" alt="스크린샷 2023-02-13 오후 6 06 30" src="https://user-images.githubusercontent.com/76432686/218416118-ac60bfbf-264d-4fce-9277-209dfcd8ecaf.png">
 </p>
 
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+[![Pub Version][pub_version_badge]][pub_package_link]
+[![Pub Points][pub_points_badge]][pub_points_link]
+[![License: MIT][license_badge]][license_link]
+
+---
 
 Unofficial packages provide easy way to use Naver APIs that do not require login written in Dart language.
 
 These packages aren't endorsed by [Naver](https://naver.com) and don't reflect the views or opinions of Naver or anyone officially involved in producing or managing Naver properties.
 
 - Naver Papago API
-    - Translation
-    - Language detection
-    - Romanization
+
+  - Translation
+  - Language detection
+  - Romanization
 
 - Naver Clova face recognition API
-    - Celebrity recognition
-    - Face recognition
+  - Celebrity recognition
+  - Face recognition
 
 Added more soon
 
@@ -31,9 +38,11 @@ Here is what you need to use the Dart SDK:
 First, generate [Naver client id and client secret](https://developers.naver.com/main/).
 
 Initialize `NaverWithoutLoginApi` with your API key.
+
 ```dart
 NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret)
 ```
+
 Use `APIname.queryFunction` form to call query function.
 
 You can check [available API](https://developers.naver.com/docs/common/openapiguide/).
@@ -76,8 +85,16 @@ print(result.runtimeType); // Print FaceResponse
 ```
 
 ## pub.dev
+
 - [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
 - [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
 - [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
 
-Documentation comment will be added gradually 😀
+## Documentation comment will be added gradually 😀
+
+[license_badge]: https://img.shields.io/github/license/coaspe/dart_naver_without_login
+[license_link]: https://img.shields.io/github/license/coaspe/dart_naver_without_login
+[pub_points_badge]: https://img.shields.io/pub/points/dart_naver_without_login
+[pub_version_badge]: https://img.shields.io/pub/v/dart_naver_without_login
+[pub_package_link]: https://pub.dev/packages/dart_naver_without_login
+[pub_points_link]: https://pub.dev/packages/dart_naver_without_login/score
