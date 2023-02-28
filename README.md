@@ -92,9 +92,11 @@ print(result.runtimeType); // Print FaceResponse
 
 ## Documentation comment will be added gradually 😀
 
+---
+
 [license_badge]: https://img.shields.io/github/license/coaspe/dart_naver_without_login
 [license_link]: https://img.shields.io/github/license/coaspe/dart_naver_without_login
-[pub_points_badge]: https://img.shields.io/pub/points/dart_naver_without_login
-[pub_version_badge]: https://img.shields.io/pub/v/dart_naver_without_login
-[pub_package_link]: https://pub.dev/packages/dart_naver_without_login
+[pub_points_badge]: https://img.shields.io/pub/points/dart_naver_papago
+[pub_version_badge]: https://img.shields.io/pub/v/dart_naver_papago
+[pub_package_link]: https://pub.dev/packages/dart_naver_papago
 [pub_points_link]: https://pub.dev/packages/dart_naver_without_login/score
