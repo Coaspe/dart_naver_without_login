@@ -1,5 +1,10 @@
 class NaverWithoutLoginApi {
   NaverWithoutLoginApi._();
+
+  static final NaverWithoutLoginApi _instance = NaverWithoutLoginApi._();
+
+  factory NaverWithoutLoginApi() => _instance;
+
   static String? _clientId;
   static set clientId(newId) => _clientId = newId;
   static String? get clientId => _clientId;

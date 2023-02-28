@@ -7,7 +7,14 @@ import 'dart_naver_without_login_common.dart';
 
 enum RequestMethod { get, post, put, delete }
 
+/// Singleton class for Restful API methods.
 class ApiUtil {
+  ApiUtil._();
+
+  static final ApiUtil _instance = ApiUtil._();
+
+  factory ApiUtil() => _instance;
+
   /// Basic request method for API request
   ///
   /// [task] is a G.fromJson. Default Content Type is application/json.
