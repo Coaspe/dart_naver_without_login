@@ -17,8 +17,13 @@ class ApiUtil {
 
   /// Basic request method for API request
   ///
-  /// [task] is a G.fromJson. Default Content Type is application/json.
-  /// Now only POST and GET request supported.
+  /// [url] - The URL of the API endpoint.
+  /// [task] - A function that takes a generic type [G] as input and performs a task on the JSON response.
+  /// [requestMethod] - The HTTP request method (GET or POST). Default is GET.
+  /// [headers] - Optional headers to be included in the request.
+  /// [body] - Optional request body data.
+  ///
+  /// Returns a Future of type [T] representing the result of the API request.
   static Future<T> requestApiWithoutLogin<T, G>(
       String url, Function(G json) task,
       {RequestMethod requestMethod = RequestMethod.get,
@@ -27,7 +32,7 @@ class ApiUtil {
     assert(
         NaverWithoutLoginApi.clientId != null &&
             NaverWithoutLoginApi.clientSecret != null,
-        "Client id and client secrete must not be null.");
+        "Client id and client secret must not be null.");
 
     headers ??= {};
     if (!headers.containsKey("Content-Type")) {
@@ -47,17 +52,11 @@ class ApiUtil {
           response = await http.post(Uri.parse(url),
               headers: headers, body: jsonEncode(body));
           break;
-        // case RequestMethod.put:
-        //   response = await http.put(Uri.parse(url), headers: headers);
-        //   break;
-        // case RequestMethod.delete:
-        //   response = await http.delete(Uri.parse(url), headers: headers);
-        //   break;
         default:
           response = await http.get(Uri.parse(url), headers: headers);
           break;
       }
-      // Resopnse Status
+      // Response Status
       switch (response.statusCode) {
         case 200:
           return task(jsonDecode(response.body));
@@ -72,14 +71,21 @@ class ApiUtil {
 
   /// Request multipart/form-data post using http.MultipartRequest.
   ///
-  /// The size of [image] must be smaller than 2MB.
+  /// [url] - The URL of the API endpoint.
+  /// [image] - The image data to be sent in the request.
+  /// [task] - A function that takes a generic type [G] as input and performs a task on the JSON response.
+  /// [headers] - Optional headers to be included in the request.
+  ///
+  /// Returns a Future of type [T] representing the result of the API request.
+  ///
+  /// Throws an exception if the request fails or the response status code is not 200.
   static Future<T> requestMultipartApi<T, G>(
       String url, Uint8List image, Function(G json) task,
       {Map<String, String>? headers}) async {
     assert(
         NaverWithoutLoginApi.clientId != null &&
             NaverWithoutLoginApi.clientSecret != null,
-        "Client id and client secrete must not be null.");
+        "Client id and client secret must not be null.");
 
     headers ??= <String, String>{};
     headers["X-Naver-Client-Id"] = NaverWithoutLoginApi.clientId!;
@@ -96,7 +102,7 @@ class ApiUtil {
       final streamResponse = await request.send();
       final response = await http.Response.fromStream(streamResponse);
 
-      // Resopnse Status
+      // Response Status
       switch (response.statusCode) {
         case 200:
           return task(jsonDecode(response.body));

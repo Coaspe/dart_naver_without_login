@@ -1,3 +1,6 @@
+/// A class representing the NaverWithoutLoginApi.
+///
+/// This class provides methods and properties for interacting with the Naver API without login.
 class NaverWithoutLoginApi {
   NaverWithoutLoginApi._();
 
@@ -13,12 +16,15 @@ class NaverWithoutLoginApi {
   static set clientSecret(newSecret) => _clientSecret = newSecret;
   static String? get clientSecret => _clientSecret;
 
+  /// Initializes the NaverWithoutLoginApi with the provided [clientId] and [clientSecret].
+  ///
+  /// Throws an assertion error if [clientId] or [clientSecret] is empty.
   static void init({
     required String clientId,
     required String clientSecret,
   }) {
     assert(clientId.isNotEmpty && clientSecret.isNotEmpty,
-        "Invaild client id or client secret");
+        "Invalid client id or client secret");
     _clientId = clientId;
     _clientSecret = clientSecret;
   }

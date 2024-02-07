@@ -4,7 +4,14 @@ import 'package:dart_naver_without_login_common/dart_naver_without_login_common.
 import 'model/papago_response.dart';
 
 class PapagoTranslation {
-  /// Get a translated text source to target
+  /// Translates the given [text] from the source language [src] to the target language [tar].
+  ///
+  /// The [headers] parameter is an optional map of additional headers to be included in the API request.
+  ///
+  /// Throws an assertion error if the translation from [src] to [tar] is not supported.
+  /// Throws an assertion error if the language code of the [text] does not match the [src] language code.
+  ///
+  /// Returns a [Future] that completes with a [PapagoResponseMessage] containing the translated text.
   static Future<PapagoResponseMessage> getTranslation(
       LangCode src, LangCode tar, String text,
       {Map<String, String>? headers}) async {
