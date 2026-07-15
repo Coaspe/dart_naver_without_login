@@ -7,9 +7,11 @@ part of 'romanization_response.dart';
 // **************************************************************************
 
 RomanizationResponse _$RomanizationResponseFromJson(
-        Map<String, dynamic> json) =>
-    RomanizationResponse(
-      aResult: (json['aResult'] as List<dynamic>)
-          .map((e) => RomanizationResponseResult.fromJson(e))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => RomanizationResponse(
+  aResult: (json['aResult'] as List<dynamic>)
+      .map(
+        (e) => RomanizationResponseResult.fromJson(e as Map<String, dynamic>),
+      )
+      .toList(),
+);

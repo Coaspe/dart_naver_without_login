@@ -11,6 +11,6 @@ class CelebrityResponseFace {
     return '{ celebrity: ${celebrity.toString()} }';
   }
 
-  factory CelebrityResponseFace.fromJson(json) =>
+  factory CelebrityResponseFace.fromJson(Map<String, dynamic> json) =>
       _$CelebrityResponseFaceFromJson(json);
 }

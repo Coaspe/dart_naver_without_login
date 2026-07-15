@@ -6,21 +6,21 @@ part 'papago_response_message.g.dart';
 @JsonSerializable(createToJson: false)
 class PapagoResponseMessage {
   const PapagoResponseMessage({
-    required this.type,
-    required this.service,
-    required this.version,
+    this.type,
+    this.service,
+    this.version,
     required this.result,
   });
   @JsonKey(name: "@type")
-  final String type;
+  final String? type;
   @JsonKey(name: "@service")
-  final String service;
+  final String? service;
   @JsonKey(name: "@version")
-  final String version;
+  final String? version;
   final PapagoResponseResult result;
 
   /// For convinient access to translatedText
-  get getText => result.translatedText;
-  factory PapagoResponseMessage.fromJson(json) =>
+  String get getText => result.translatedText;
+  factory PapagoResponseMessage.fromJson(Map<String, dynamic> json) =>
       _$PapagoResponseMessageFromJson(json);
 }

@@ -7,12 +7,13 @@ part of 'language_detection_response.dart';
 // **************************************************************************
 
 LanguageDetectionResponse _$LanguageDetectionResponseFromJson(
-        Map<String, dynamic> json) =>
-    LanguageDetectionResponse(
-      langCode: $enumDecode(_$LangCodeEnumMap, json['langCode']),
-    );
+  Map<String, dynamic> json,
+) => LanguageDetectionResponse(
+  langCode: $enumDecode(_$LangCodeEnumMap, json['langCode']),
+);
 
 const _$LangCodeEnumMap = {
+  LangCode.auto: 'auto',
   LangCode.ko: 'ko',
   LangCode.ja: 'ja',
   LangCode.zhCN: 'zh-CN',
@@ -30,5 +31,6 @@ const _$LangCodeEnumMap = {
   LangCode.th: 'th',
   LangCode.ru: 'ru',
   LangCode.it: 'it',
+  LangCode.hi: 'hi',
   LangCode.unk: 'unk',
 };

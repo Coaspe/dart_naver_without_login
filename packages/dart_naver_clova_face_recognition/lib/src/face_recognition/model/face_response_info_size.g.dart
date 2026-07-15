@@ -7,8 +7,8 @@ part of 'face_response_info_size.dart';
 // **************************************************************************
 
 FaceResponseInfoSize _$FaceResponseInfoSizeFromJson(
-        Map<String, dynamic> json) =>
-    FaceResponseInfoSize(
-      width: json['width'] as int,
-      height: json['height'] as int,
-    );
+  Map<String, dynamic> json,
+) => FaceResponseInfoSize(
+  width: (json['width'] as num).toInt(),
+  height: (json['height'] as num).toInt(),
+);

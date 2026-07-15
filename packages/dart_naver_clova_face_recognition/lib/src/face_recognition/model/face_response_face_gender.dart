@@ -5,14 +5,11 @@ enum FaceGender { male, female }
 
 @JsonSerializable(createToJson: false)
 class FaceResponseFaceGender {
-  const FaceResponseFaceGender({
-    required this.value,
-    required this.confidence,
-  });
+  const FaceResponseFaceGender({required this.value, required this.confidence});
   final FaceGender value;
   final double confidence;
   @override
   String toString() => '{ value: ${value.name}, confidence: $confidence }';
-  factory FaceResponseFaceGender.fromJson(json) =>
+  factory FaceResponseFaceGender.fromJson(Map<String, dynamic> json) =>
       _$FaceResponseFaceGenderFromJson(json);
 }

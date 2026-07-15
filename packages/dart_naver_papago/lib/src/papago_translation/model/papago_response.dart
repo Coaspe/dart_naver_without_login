@@ -5,15 +5,14 @@ part 'papago_response.g.dart';
 
 @JsonSerializable(createToJson: false)
 class PapagoResponse {
-  const PapagoResponse({
-    required this.message,
-  });
+  const PapagoResponse({required this.message});
 
   /// Response message
   final PapagoResponseMessage message;
 
   /// For convinient access to translatedText
-  get getText => message.result.translatedText;
+  String get getText => message.result.translatedText;
 
-  factory PapagoResponse.fromJson(json) => _$PapagoResponseFromJson(json);
+  factory PapagoResponse.fromJson(Map<String, dynamic> json) =>
+      _$PapagoResponseFromJson(json);
 }

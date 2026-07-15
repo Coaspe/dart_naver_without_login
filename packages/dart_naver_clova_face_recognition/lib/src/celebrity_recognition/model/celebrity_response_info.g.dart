@@ -7,10 +7,12 @@ part of 'celebrity_response_info.dart';
 // **************************************************************************
 
 CelebrityResponseInfo _$CelebrityResponseInfoFromJson(
-        Map<String, dynamic> json) =>
-    CelebrityResponseInfo(
-      size: json['size'] == null
-          ? null
-          : CelebrityResponseInfoSize.fromJson(json['size']),
-      faceCount: json['faceCount'] as int,
-    );
+  Map<String, dynamic> json,
+) => CelebrityResponseInfo(
+  size: json['size'] == null
+      ? null
+      : CelebrityResponseInfoSize.fromJson(
+          json['size'] as Map<String, dynamic>,
+        ),
+  faceCount: (json['faceCount'] as num).toInt(),
+);

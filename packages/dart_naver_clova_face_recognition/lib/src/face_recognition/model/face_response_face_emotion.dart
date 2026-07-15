@@ -23,6 +23,6 @@ class FaceResponseFaceEmotion {
   final double confidence;
   @override
   String toString() => '{ value: ${value.name}, confidence: $confidence }';
-  factory FaceResponseFaceEmotion.fromJson(json) =>
+  factory FaceResponseFaceEmotion.fromJson(Map<String, dynamic> json) =>
       _$FaceResponseFaceEmotionFromJson(json);
 }

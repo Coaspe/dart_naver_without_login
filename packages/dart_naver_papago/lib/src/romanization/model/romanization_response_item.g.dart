@@ -7,8 +7,8 @@ part of 'romanization_response_item.dart';
 // **************************************************************************
 
 RomanizationResponseItem _$RomanizationResponseItemFromJson(
-        Map<String, dynamic> json) =>
-    RomanizationResponseItem(
-      name: json['name'] as String,
-      score: json['score'] as String,
-    );
+  Map<String, dynamic> json,
+) => RomanizationResponseItem(
+  name: json['name'] as String,
+  score: json['score'] as String,
+);

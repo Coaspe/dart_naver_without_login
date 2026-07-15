@@ -8,5 +8,7 @@ part of 'papago_response.dart';
 
 PapagoResponse _$PapagoResponseFromJson(Map<String, dynamic> json) =>
     PapagoResponse(
-      message: PapagoResponseMessage.fromJson(json['message']),
+      message: PapagoResponseMessage.fromJson(
+        json['message'] as Map<String, dynamic>,
+      ),
     );

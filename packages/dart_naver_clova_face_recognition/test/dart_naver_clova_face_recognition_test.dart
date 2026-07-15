@@ -1,51 +1,72 @@
-import 'package:dart_naver_clova_face_recognition/src/celebrity_recognition/celebrity_recognition.dart';
-import 'package:dart_naver_clova_face_recognition/src/celebrity_recognition/model/celebrity_response.dart';
-import 'package:dart_naver_clova_face_recognition/src/face_recognition/face_recognition.dart';
-import 'package:dart_naver_clova_face_recognition/src/face_recognition/model/face_response.dart';
-import 'package:dart_naver_clova_face_recognition/src/face_recognition/model/face_response_face_age.dart';
-import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:dart_naver_clova_face_recognition/dart_naver_clova_face_recognition.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:test/test.dart';
-import 'dart:io' as io;
 
 void main() {
-  final clientId = "your-client-Id";
-  final clientSecret = "your-client-secret";
-  group('Recognize celebrity', () {
-    setUp(() {
-      NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret);
-    });
-
-    test('Recognize celebrity', () async {
-      final x = await CelebrityRecognition.recognizeCelebrity(
-          await io.File('your-image-path').readAsBytes());
-      print(x.toString());
-      expect(x, isA<CelebrityResponse>());
-      expect(x.faces[0].celebrity.value, '현빈');
-    });
-
-    test('Maximum image size assertion', () async {
-      try {
-        final x = await CelebrityRecognition.recognizeCelebrity(
-            await io.File('larger-than-2MB-image-path').readAsBytes());
-        print(x.toString());
-      } catch (e) {
-        expect(e, isA<AssertionError>());
-      }
-    });
+  setUp(() {
+    NaverWithoutLoginApi.init(
+      clientId: 'developers-id',
+      clientSecret: 'developers-secret',
+    );
   });
 
-  group('Recognize face', () {
-    setUp(() {
-      NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret);
+  test('recognizes a celebrity with a multipart request', () async {
+    final client = MockClient((request) async {
+      expect(request.url.toString(), ServerHost.celebrityRecognition);
+      expect(request.headers['X-Naver-Client-Id'], 'developers-id');
+      expect(
+        request.headers['content-type'],
+        startsWith('multipart/form-data'),
+      );
+      return http.Response.bytes(
+        utf8.encode(
+          '{"info":{"size":{"width":100,"height":100},"faceCount":1},'
+          '"faces":[{"celebrity":{"value":"현빈","confidence":0.99}}]}',
+        ),
+        200,
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
+      );
     });
 
-    test('Recognize face', () async {
-      final x = await FaceRecognition.recognizeFace(
-          await io.File('your-image-path').readAsBytes());
+    final response = await CelebrityRecognition.recognizeCelebrity(
+      Uint8List.fromList([1, 2, 3]),
+      client: client,
+    );
 
-      print(x.toString());
-      expect(x, isA<FaceResponse>());
-      expect(x.faces[0].age, isA<FaceResponseFaceAge>());
+    expect(response.faces.single.celebrity.value, '현빈');
+  });
+
+  test('recognizes face attributes', () async {
+    final client = MockClient((request) async {
+      expect(request.url.toString(), ServerHost.faceRecognition);
+      return http.Response(
+        '{"info":{"size":{"width":100,"height":100},"faceCount":1},'
+        '"faces":[{"roi":{"x":1,"y":2,"width":3,"height":4},'
+        '"landmark":{},"gender":{"value":"male","confidence":0.9},'
+        '"age":{"value":"20~24","confidence":0.8},'
+        '"emotion":{"value":"neutral","confidence":0.7},'
+        '"pose":{"value":"frontal_face","confidence":0.6}}]}',
+        200,
+      );
     });
+
+    final response = await FaceRecognition.recognizeFace(
+      Uint8List.fromList([1, 2, 3]),
+      client: client,
+    );
+
+    expect(response.faces.single.age.value, '20~24');
+    expect(response.faces.single.pose.value, FacePose.frontalFace);
+  });
+
+  test('rejects images larger than 2MB', () {
+    expect(
+      CelebrityRecognition.recognizeCelebrity(Uint8List(2 * 1024 * 1024 + 1)),
+      throwsArgumentError,
+    );
   });
 }

@@ -20,6 +20,6 @@ class FaceResponseFaceLandmark {
   @override
   String toString() =>
       '{ leftEye: $leftEye, rightEye: $rightEye, nose: $nose, leftMouth: $leftMouth, rightMouth: $rightMouth }';
-  factory FaceResponseFaceLandmark.fromJson(json) =>
+  factory FaceResponseFaceLandmark.fromJson(Map<String, dynamic> json) =>
       _$FaceResponseFaceLandmarkFromJson(json);
 }

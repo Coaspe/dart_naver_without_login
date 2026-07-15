@@ -10,6 +10,6 @@ FaceResponseInfo _$FaceResponseInfoFromJson(Map<String, dynamic> json) =>
     FaceResponseInfo(
       size: json['size'] == null
           ? null
-          : FaceResponseInfoSize.fromJson(json['size']),
-      faceCount: json['faceCount'] as int,
+          : FaceResponseInfoSize.fromJson(json['size'] as Map<String, dynamic>),
+      faceCount: (json['faceCount'] as num).toInt(),
     );

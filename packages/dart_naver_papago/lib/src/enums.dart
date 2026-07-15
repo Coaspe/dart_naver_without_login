@@ -7,6 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 /// that can be used for translation purposes. Each language code is
 /// represented as a value in the enum.
 enum LangCode {
+  auto, // Automatic source-language detection (translation requests only)
   ko, // Korean
   ja, // Japanese
   @JsonValue("zh-CN")
@@ -26,6 +27,7 @@ enum LangCode {
   th, // Thai
   ru, // Russian
   it, // Italian
+  hi, // Hindi
   unk, // Unknown
 }
 

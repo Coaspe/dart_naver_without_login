@@ -4,10 +4,7 @@ part 'celebrity_response_info.g.dart';
 
 @JsonSerializable(createToJson: false)
 class CelebrityResponseInfo {
-  const CelebrityResponseInfo({
-    this.size,
-    required this.faceCount,
-  });
+  const CelebrityResponseInfo({this.size, required this.faceCount});
   final CelebrityResponseInfoSize? size;
   final int faceCount;
   @override
@@ -15,6 +12,6 @@ class CelebrityResponseInfo {
     return "{ size: ${size.toString()}, faceCount:$faceCount }";
   }
 
-  factory CelebrityResponseInfo.fromJson(json) =>
+  factory CelebrityResponseInfo.fromJson(Map<String, dynamic> json) =>
       _$CelebrityResponseInfoFromJson(json);
 }

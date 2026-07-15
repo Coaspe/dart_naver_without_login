@@ -7,11 +7,11 @@ part of 'face_response_face_pose.dart';
 // **************************************************************************
 
 FaceResponseFacePose _$FaceResponseFacePoseFromJson(
-        Map<String, dynamic> json) =>
-    FaceResponseFacePose(
-      value: $enumDecode(_$FacePoseEnumMap, json['value']),
-      confidence: (json['confidence'] as num).toDouble(),
-    );
+  Map<String, dynamic> json,
+) => FaceResponseFacePose(
+  value: $enumDecode(_$FacePoseEnumMap, json['value']),
+  confidence: (json['confidence'] as num).toDouble(),
+);
 
 const _$FacePoseEnumMap = {
   FacePose.partFace: 'part_face',

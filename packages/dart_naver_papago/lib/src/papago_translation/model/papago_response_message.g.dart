@@ -7,10 +7,10 @@ part of 'papago_response_message.dart';
 // **************************************************************************
 
 PapagoResponseMessage _$PapagoResponseMessageFromJson(
-        Map<String, dynamic> json) =>
-    PapagoResponseMessage(
-      type: json['@type'] as String,
-      service: json['@service'] as String,
-      version: json['@version'] as String,
-      result: PapagoResponseResult.fromJson(json['result']),
-    );
+  Map<String, dynamic> json,
+) => PapagoResponseMessage(
+  type: json['@type'] as String?,
+  service: json['@service'] as String?,
+  version: json['@version'] as String?,
+  result: PapagoResponseResult.fromJson(json['result'] as Map<String, dynamic>),
+);

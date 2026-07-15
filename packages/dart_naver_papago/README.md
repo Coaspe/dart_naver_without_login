@@ -1,52 +1,57 @@
 # dart_naver_papago
-An unofficial package for using Naver Papago translation, language detection, romanization api.
 
-- Naver Papago API
-    - Translation
-    - Language detection
-    - Romanization
+An unofficial Dart client for NAVER Papago text translation, language detection,
+and Korean-name romanization.
 
 ## Requirements
 
-Here is what you need to use the Dart SDK:
+- Dart 3.11 or later.
+- NAVER Cloud Platform credentials for Papago translation and language detection.
+- NAVER Developers credentials for Korean-name romanization.
 
-- Dart 2.19.0 or higher
+## Papago setup
 
-## Exmaple
-
-First, generate [Naver client id and client secret](https://developers.naver.com/main/).
-
-Initialize `NaverWithoutLoginApi` with your API key.
-
-```dart
-NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret)
-```
-Use `APIname.queryFunction` form to call query function.
-
-You can check [available API](https://developers.naver.com/docs/common/openapiguide/).
+Register an application for
+[Papago Translation](https://www.ncloud.com/product/aiService/papagoTranslation),
+then initialize its NAVER Cloud credentials:
 
 ```dart
-/// Translate Korean to English
-///
-/// Returns PapagoResponseMessage
-final result = await PapagoTranslation.getTranslation(LangCode.ko, LangCode.en, "안녕하세요");
-print(result.getText); // Print Hello
-
-/// Detect language code
-///
-/// Returns LanguageDetectionResponse
-final result = await LanguageDetection.detectLanguage("안녕하세요");
-print(result.langCode); // Print LangCode.ko
-
-/// Name romanization
-///
-/// Returns RomanizationResponse
-final result = await Romanization.romanization("강형욱");
+NaverCloudApi.init(
+  clientId: cloudClientId,
+  clientSecret: cloudClientSecret,
+);
 ```
 
-## pub.dev
-- [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
-- [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
-- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
+Translate text or detect its language:
 
-Documentation comment will be added gradually 😀
+```dart
+final translation = await PapagoTranslation.getTranslation(
+  LangCode.ko,
+  LangCode.en,
+  '안녕하세요',
+);
+print(translation.getText);
+
+final detected = await LanguageDetection.detectLanguage('안녕하세요');
+print(detected.langCode);
+```
+
+Use `LangCode.auto` as the source language to let Papago detect it as part of a
+translation request.
+
+## Korean-name romanization setup
+
+Register an application at [NAVER Developers](https://developers.naver.com/main/)
+and initialize its credentials separately:
+
+```dart
+NaverWithoutLoginApi.init(
+  clientId: developersClientId,
+  clientSecret: developersClientSecret,
+);
+
+final response = await Romanization.romanization('강형욱');
+print(response.aResult.first.aItems.first.name);
+```
+
+The package is not endorsed by NAVER.

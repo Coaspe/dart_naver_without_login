@@ -1,6 +1,8 @@
 import 'package:dart_naver_papago/src/papago_translation/model/papago_response_message.dart';
 import 'package:dart_naver_papago/src/service.dart';
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
+import 'package:http/http.dart' as http;
+
 import 'model/papago_response.dart';
 
 class PapagoTranslation {
@@ -8,26 +10,46 @@ class PapagoTranslation {
   ///
   /// The [headers] parameter is an optional map of additional headers to be included in the API request.
   ///
-  /// Throws an assertion error if the translation from [src] to [tar] is not supported.
-  /// Throws an assertion error if the language code of the [text] does not match the [src] language code.
+  /// Throws an [ArgumentError] if the language pair or text is invalid.
   ///
   /// Returns a [Future] that completes with a [PapagoResponseMessage] containing the translated text.
   static Future<PapagoResponseMessage> getTranslation(
-      LangCode src, LangCode tar, String text,
-      {Map<String, String>? headers}) async {
-    assert(checkTranslatable(src, tar),
-        "${src.valueToString} can not be passed as src or ${src.valueToString} -> ${tar.valueToString} translation does not supported yet. \n Visite https://developers.naver.com/docs/papago/papago-nmt-overview.md");
-    assert((await LanguageDetection.detectLanguage(text)).langCode == src,
-        "text's language code must be same with src");
+    LangCode src,
+    LangCode tar,
+    String text, {
+    Map<String, String>? headers,
+    http.Client? client,
+  }) async {
+    if (!checkTranslatable(src, tar)) {
+      throw ArgumentError(
+        '${src.valueToString} -> ${tar.valueToString} is not supported.',
+      );
+    }
+    if (text.isEmpty || text.runes.length > 5000) {
+      throw ArgumentError.value(
+        text,
+        'text',
+        'Text must contain between 1 and 5000 characters.',
+      );
+    }
 
-    final body = <String, String>{
+    final body = <String, dynamic>{
       'source': src.valueToString,
       'target': tar.valueToString,
-      'text': text
+      'text': text,
     };
-    PapagoResponse message = await ApiUtil.requestApiWithoutLogin(
-        ServerHost.papagoTranslation, PapagoResponse.fromJson,
-        requestMethod: RequestMethod.post, headers: headers, body: body);
+    final message = await ApiUtil.requestApiWithoutLogin(
+      ServerHost.papagoTranslation,
+      PapagoResponse.fromJson,
+      requestMethod: RequestMethod.post,
+      authType: ApiAuthType.naverCloud,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        ...?headers,
+      },
+      body: body,
+      client: client,
+    );
 
     return message.message;
   }

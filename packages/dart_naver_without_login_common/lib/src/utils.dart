@@ -1,117 +1,164 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'dart_naver_without_login_common.dart';
 
 enum RequestMethod { get, post, put, delete }
 
-/// Singleton class for Restful API methods.
+enum ApiAuthType { naverDevelopers, naverCloud }
+
+class NaverApiException implements Exception {
+  const NaverApiException(this.statusCode, this.body);
+
+  final int statusCode;
+  final String body;
+
+  @override
+  String toString() => 'NaverApiException($statusCode): $body';
+}
+
+/// HTTP helpers shared by the NAVER API packages.
 class ApiUtil {
   ApiUtil._();
 
-  static final ApiUtil _instance = ApiUtil._();
-
-  factory ApiUtil() => _instance;
-
-  /// Basic request method for API request
-  ///
-  /// [url] - The URL of the API endpoint.
-  /// [task] - A function that takes a generic type [G] as input and performs a task on the JSON response.
-  /// [requestMethod] - The HTTP request method (GET or POST). Default is GET.
-  /// [headers] - Optional headers to be included in the request.
-  /// [body] - Optional request body data.
-  ///
-  /// Returns a Future of type [T] representing the result of the API request.
-  static Future<T> requestApiWithoutLogin<T, G>(
-      String url, Function(G json) task,
-      {RequestMethod requestMethod = RequestMethod.get,
-      Map<String, String>? headers,
-      Map<String, dynamic>? body}) async {
-    assert(
-        NaverWithoutLoginApi.clientId != null &&
-            NaverWithoutLoginApi.clientSecret != null,
-        "Client id and client secret must not be null.");
-
-    headers ??= {};
-    if (!headers.containsKey("Content-Type")) {
-      headers['Content-Type'] = 'application/json; charset=UTF-8';
-    }
-    headers["X-Naver-Client-Id"] = NaverWithoutLoginApi.clientId!;
-    headers["X-Naver-Client-Secret"] = NaverWithoutLoginApi.clientSecret!;
+  /// Sends a JSON or form-encoded API request and parses its JSON response.
+  static Future<T> requestApiWithoutLogin<T>(
+    String url,
+    T Function(Map<String, dynamic> json) parse, {
+    RequestMethod requestMethod = RequestMethod.get,
+    ApiAuthType authType = ApiAuthType.naverDevelopers,
+    Map<String, String>? headers,
+    Map<String, dynamic>? body,
+    http.Client? client,
+  }) async {
+    final requestHeaders = _authenticatedHeaders(headers, authType);
+    requestHeaders.putIfAbsent(
+      'Content-Type',
+      () => 'application/json; charset=UTF-8',
+    );
+    final requestBody = _encodeBody(body, requestHeaders['Content-Type']);
+    final requestClient = client ?? http.Client();
 
     try {
-      http.Response response;
-      // API request method
-      switch (requestMethod) {
-        case RequestMethod.get:
-          response = await http.get(Uri.parse(url), headers: headers);
-          break;
-        case RequestMethod.post:
-          response = await http.post(Uri.parse(url),
-              headers: headers, body: jsonEncode(body));
-          break;
-        default:
-          response = await http.get(Uri.parse(url), headers: headers);
-          break;
+      final uri = Uri.parse(url);
+      final response = await switch (requestMethod) {
+        RequestMethod.get => requestClient.get(uri, headers: requestHeaders),
+        RequestMethod.post => requestClient.post(
+          uri,
+          headers: requestHeaders,
+          body: requestBody,
+          encoding: utf8,
+        ),
+        RequestMethod.put => requestClient.put(
+          uri,
+          headers: requestHeaders,
+          body: requestBody,
+          encoding: utf8,
+        ),
+        RequestMethod.delete => requestClient.delete(
+          uri,
+          headers: requestHeaders,
+          body: requestBody,
+          encoding: utf8,
+        ),
+      };
+
+      return _parseResponse(response, parse);
+    } finally {
+      if (client == null) {
+        requestClient.close();
       }
-      // Response Status
-      switch (response.statusCode) {
-        case 200:
-          return task(jsonDecode(response.body));
-        default:
-          throw Exception(
-              "Status code :${response.statusCode}, ${response.body}");
-      }
-    } catch (_) {
-      rethrow;
     }
   }
 
-  /// Request multipart/form-data post using http.MultipartRequest.
-  ///
-  /// [url] - The URL of the API endpoint.
-  /// [image] - The image data to be sent in the request.
-  /// [task] - A function that takes a generic type [G] as input and performs a task on the JSON response.
-  /// [headers] - Optional headers to be included in the request.
-  ///
-  /// Returns a Future of type [T] representing the result of the API request.
-  ///
-  /// Throws an exception if the request fails or the response status code is not 200.
-  static Future<T> requestMultipartApi<T, G>(
-      String url, Uint8List image, Function(G json) task,
-      {Map<String, String>? headers}) async {
-    assert(
-        NaverWithoutLoginApi.clientId != null &&
-            NaverWithoutLoginApi.clientSecret != null,
-        "Client id and client secret must not be null.");
-
-    headers ??= <String, String>{};
-    headers["X-Naver-Client-Id"] = NaverWithoutLoginApi.clientId!;
-    headers["X-Naver-Client-Secret"] = NaverWithoutLoginApi.clientSecret!;
+  /// Sends a multipart image request and parses its JSON response.
+  static Future<T> requestMultipartApi<T>(
+    String url,
+    Uint8List image,
+    T Function(Map<String, dynamic> json) parse, {
+    ApiAuthType authType = ApiAuthType.naverDevelopers,
+    Map<String, String>? headers,
+    http.Client? client,
+  }) async {
+    final requestHeaders = _authenticatedHeaders(headers, authType);
+    final requestClient = client ?? http.Client();
 
     try {
-      // Multipart request
-      var request = http.MultipartRequest("POST", Uri.parse(url));
-      request.headers.addAll(headers);
-      request.files.add(http.MultipartFile.fromBytes(
-        'image',
-        image,
-      ));
-      final streamResponse = await request.send();
-      final response = await http.Response.fromStream(streamResponse);
+      final request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(requestHeaders);
+      request.files.add(http.MultipartFile.fromBytes('image', image));
+      final streamedResponse = await requestClient.send(request);
+      final response = await http.Response.fromStream(streamedResponse);
 
-      // Response Status
-      switch (response.statusCode) {
-        case 200:
-          return task(jsonDecode(response.body));
-        default:
-          throw Exception(
-              "Status code :${response.statusCode}, ${response.body}");
+      return _parseResponse(response, parse);
+    } finally {
+      if (client == null) {
+        requestClient.close();
       }
-    } catch (_) {
-      rethrow;
     }
+  }
+
+  static Map<String, String> _authenticatedHeaders(
+    Map<String, String>? headers,
+    ApiAuthType authType,
+  ) {
+    final result = <String, String>{...?headers};
+    final (idHeader, secretHeader, clientId, clientSecret) = switch (authType) {
+      ApiAuthType.naverDevelopers => (
+        'X-Naver-Client-Id',
+        'X-Naver-Client-Secret',
+        NaverWithoutLoginApi.clientId,
+        NaverWithoutLoginApi.clientSecret,
+      ),
+      ApiAuthType.naverCloud => (
+        'X-NCP-APIGW-API-KEY-ID',
+        'X-NCP-APIGW-API-KEY',
+        NaverCloudApi.clientId,
+        NaverCloudApi.clientSecret,
+      ),
+    };
+
+    if ((!result.containsKey(idHeader) && clientId == null) ||
+        (!result.containsKey(secretHeader) && clientSecret == null)) {
+      throw StateError('Client ID and client secret must be initialized.');
+    }
+
+    if (clientId != null) {
+      result.putIfAbsent(idHeader, () => clientId);
+    }
+    if (clientSecret != null) {
+      result.putIfAbsent(secretHeader, () => clientSecret);
+    }
+    return result;
+  }
+
+  static Object? _encodeBody(Map<String, dynamic>? body, String? contentType) {
+    if (body == null) {
+      return null;
+    }
+    if (contentType?.toLowerCase().startsWith('application/json') ?? false) {
+      return jsonEncode(body);
+    }
+    return body.map((key, value) => MapEntry(key, value.toString()));
+  }
+
+  static T _parseResponse<T>(
+    http.Response response,
+    T Function(Map<String, dynamic> json) parse,
+  ) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw NaverApiException(
+        response.statusCode,
+        utf8.decode(response.bodyBytes, allowMalformed: true),
+      );
+    }
+
+    final decoded = jsonDecode(utf8.decode(response.bodyBytes));
+    if (decoded is! Map) {
+      throw const FormatException('Expected a JSON object response.');
+    }
+    return parse(Map<String, dynamic>.from(decoded));
   }
 }

@@ -1,11 +1,87 @@
+import 'dart:convert';
+
+import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    setUp(() {
-      // Additional setup goes here.
+  setUp(() {
+    NaverWithoutLoginApi.init(
+      clientId: 'developers-id',
+      clientSecret: 'developers-secret',
+    );
+    NaverCloudApi.init(clientId: 'cloud-id', clientSecret: 'cloud-secret');
+  });
+
+  test('rejects empty credentials', () {
+    expect(
+      () => NaverWithoutLoginApi.init(clientId: '', clientSecret: 'secret'),
+      throwsArgumentError,
+    );
+    expect(
+      () => NaverCloudApi.init(clientId: 'id', clientSecret: ''),
+      throwsArgumentError,
+    );
+  });
+
+  test('sends NAVER Developers credentials with a JSON request', () async {
+    final client = MockClient((request) async {
+      expect(request.method, 'POST');
+      expect(request.headers['X-Naver-Client-Id'], 'developers-id');
+      expect(request.headers['X-Naver-Client-Secret'], 'developers-secret');
+      expect(jsonDecode(request.body), {'query': 'hello'});
+      return http.Response('{"value":"ok"}', 200);
     });
 
-    test('First Test', () {});
+    final result = await ApiUtil.requestApiWithoutLogin(
+      'https://example.com/json',
+      (json) => json['value'] as String,
+      requestMethod: RequestMethod.post,
+      body: {'query': 'hello'},
+      client: client,
+    );
+
+    expect(result, 'ok');
+  });
+
+  test('sends NAVER Cloud credentials with a form request', () async {
+    final client = MockClient((request) async {
+      expect(request.headers['X-NCP-APIGW-API-KEY-ID'], 'cloud-id');
+      expect(request.headers['X-NCP-APIGW-API-KEY'], 'cloud-secret');
+      expect(request.bodyFields, {'query': '안녕하세요'});
+      return http.Response('{"langCode":"ko"}', 200);
+    });
+
+    final result = await ApiUtil.requestApiWithoutLogin(
+      'https://example.com/form',
+      (json) => json['langCode'] as String,
+      requestMethod: RequestMethod.post,
+      authType: ApiAuthType.naverCloud,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: {'query': '안녕하세요'},
+      client: client,
+    );
+
+    expect(result, 'ko');
+  });
+
+  test('throws a typed exception for an unsuccessful response', () async {
+    final client = MockClient(
+      (_) async => http.Response('{"error":"forbidden"}', 403),
+    );
+
+    expect(
+      ApiUtil.requestApiWithoutLogin(
+        'https://example.com/error',
+        (json) => json,
+        client: client,
+      ),
+      throwsA(
+        isA<NaverApiException>()
+            .having((error) => error.statusCode, 'statusCode', 403)
+            .having((error) => error.body, 'body', contains('forbidden')),
+      ),
+    );
   });
 }

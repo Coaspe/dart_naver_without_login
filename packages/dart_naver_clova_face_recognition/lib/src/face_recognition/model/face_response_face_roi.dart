@@ -16,6 +16,6 @@ class FaceResponseFaceROI {
 
   @override
   String toString() => '{ x: $x, y: $y, width: $width, height: $height }';
-  factory FaceResponseFaceROI.fromJson(json) =>
+  factory FaceResponseFaceROI.fromJson(Map<String, dynamic> json) =>
       _$FaceResponseFaceROIFromJson(json);
 }

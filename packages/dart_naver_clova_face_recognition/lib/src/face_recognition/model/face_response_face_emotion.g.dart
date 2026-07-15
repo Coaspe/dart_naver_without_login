@@ -7,11 +7,11 @@ part of 'face_response_face_emotion.dart';
 // **************************************************************************
 
 FaceResponseFaceEmotion _$FaceResponseFaceEmotionFromJson(
-        Map<String, dynamic> json) =>
-    FaceResponseFaceEmotion(
-      value: $enumDecode(_$FaceEmotionEnumMap, json['value']),
-      confidence: (json['confidence'] as num).toDouble(),
-    );
+  Map<String, dynamic> json,
+) => FaceResponseFaceEmotion(
+  value: $enumDecode(_$FaceEmotionEnumMap, json['value']),
+  confidence: (json['confidence'] as num).toDouble(),
+);
 
 const _$FaceEmotionEnumMap = {
   FaceEmotion.angry: 'angry',

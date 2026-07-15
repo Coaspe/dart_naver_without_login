@@ -3,8 +3,10 @@ part 'celebrity_response_face_celebrity.g.dart';
 
 @JsonSerializable(createToJson: false)
 class CelebrityResponseFaceCelebrity {
-  const CelebrityResponseFaceCelebrity(
-      {required this.value, required this.confidence});
+  const CelebrityResponseFaceCelebrity({
+    required this.value,
+    required this.confidence,
+  });
   final String value;
   final double confidence;
   @override
@@ -12,6 +14,6 @@ class CelebrityResponseFaceCelebrity {
     return '{ value: $value, confidence: $confidence }';
   }
 
-  factory CelebrityResponseFaceCelebrity.fromJson(json) =>
+  factory CelebrityResponseFaceCelebrity.fromJson(Map<String, dynamic> json) =>
       _$CelebrityResponseFaceCelebrityFromJson(json);
 }

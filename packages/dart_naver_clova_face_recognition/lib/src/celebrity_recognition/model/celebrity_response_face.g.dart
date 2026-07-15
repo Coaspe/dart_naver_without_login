@@ -7,7 +7,9 @@ part of 'celebrity_response_face.dart';
 // **************************************************************************
 
 CelebrityResponseFace _$CelebrityResponseFaceFromJson(
-        Map<String, dynamic> json) =>
-    CelebrityResponseFace(
-      celebrity: CelebrityResponseFaceCelebrity.fromJson(json['celebrity']),
-    );
+  Map<String, dynamic> json,
+) => CelebrityResponseFace(
+  celebrity: CelebrityResponseFaceCelebrity.fromJson(
+    json['celebrity'] as Map<String, dynamic>,
+  ),
+);

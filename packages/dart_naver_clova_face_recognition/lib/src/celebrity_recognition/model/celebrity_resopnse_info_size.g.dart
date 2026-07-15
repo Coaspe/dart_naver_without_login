@@ -7,8 +7,8 @@ part of 'celebrity_resopnse_info_size.dart';
 // **************************************************************************
 
 CelebrityResponseInfoSize _$CelebrityResponseInfoSizeFromJson(
-        Map<String, dynamic> json) =>
-    CelebrityResponseInfoSize(
-      width: json['width'] as int,
-      height: json['height'] as int,
-    );
+  Map<String, dynamic> json,
+) => CelebrityResponseInfoSize(
+  width: (json['width'] as num).toInt(),
+  height: (json['height'] as num).toInt(),
+);

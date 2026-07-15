@@ -28,5 +28,6 @@ class FaceResponseFace {
   @override
   String toString() =>
       '{ roi: ${roi.toString()}, landmark: ${landmark.toString()}, gender: ${gender.toString()}, age: ${age.toString()}, emotion: ${emotion.toString()}, pose: ${pose.toString()} }';
-  factory FaceResponseFace.fromJson(json) => _$FaceResponseFaceFromJson(json);
+  factory FaceResponseFace.fromJson(Map<String, dynamic> json) =>
+      _$FaceResponseFaceFromJson(json);
 }

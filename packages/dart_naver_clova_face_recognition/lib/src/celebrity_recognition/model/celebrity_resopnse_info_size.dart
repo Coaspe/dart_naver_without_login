@@ -12,6 +12,6 @@ class CelebrityResponseInfoSize {
     return "{ width: $width, height: $height }";
   }
 
-  factory CelebrityResponseInfoSize.fromJson(json) =>
+  factory CelebrityResponseInfoSize.fromJson(Map<String, dynamic> json) =>
       _$CelebrityResponseInfoSizeFromJson(json);
 }

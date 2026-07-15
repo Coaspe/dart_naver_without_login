@@ -1,4 +1,5 @@
 import 'package:dart_naver_without_login_common/dart_naver_without_login_common.dart';
+import 'package:http/http.dart' as http;
 
 import 'model/romanization_response.dart';
 
@@ -15,12 +16,23 @@ class Romanization {
   /// final response = await romanization('안녕하세요');
   /// print(response.romanizedText);
   /// ```
-  static Future<RomanizationResponse> romanization(String text,
-      {Map<String, String>? headers}) async {
+  static Future<RomanizationResponse> romanization(
+    String text, {
+    Map<String, String>? headers,
+    http.Client? client,
+  }) async {
+    if (text.isEmpty) {
+      throw ArgumentError.value(text, 'text', 'Text must not be empty.');
+    }
+
     final url = '${ServerHost.romanization}?query=${Uri.encodeComponent(text)}';
     final romanization = await ApiUtil.requestApiWithoutLogin(
-        url, RomanizationResponse.fromJson,
-        requestMethod: RequestMethod.get, headers: headers);
+      url,
+      RomanizationResponse.fromJson,
+      requestMethod: RequestMethod.get,
+      headers: headers,
+      client: client,
+    );
     return romanization;
   }
 }

@@ -8,23 +8,38 @@ class NaverWithoutLoginApi {
 
   factory NaverWithoutLoginApi() => _instance;
 
-  static String? _clientId;
-  static set clientId(newId) => _clientId = newId;
-  static String? get clientId => _clientId;
-
-  static String? _clientSecret;
-  static set clientSecret(newSecret) => _clientSecret = newSecret;
-  static String? get clientSecret => _clientSecret;
+  static String? clientId;
+  static String? clientSecret;
 
   /// Initializes the NaverWithoutLoginApi with the provided [clientId] and [clientSecret].
   ///
-  /// Throws an assertion error if [clientId] or [clientSecret] is empty.
-  static void init({
-    required String clientId,
-    required String clientSecret,
-  }) {
-    assert(clientId.isNotEmpty && clientSecret.isNotEmpty,
-        "Invalid client id or client secret");
+  /// Throws an [ArgumentError] if [clientId] or [clientSecret] is empty.
+  static void init({required String clientId, required String clientSecret}) {
+    if (clientId.isEmpty || clientSecret.isEmpty) {
+      throw ArgumentError("Client ID and client secret must not be empty.");
+    }
+    NaverWithoutLoginApi.clientId = clientId;
+    NaverWithoutLoginApi.clientSecret = clientSecret;
+  }
+}
+
+/// Credentials for APIs provided through NAVER Cloud Platform.
+class NaverCloudApi {
+  NaverCloudApi._();
+
+  static String? _clientId;
+  static String? get clientId => _clientId;
+
+  static String? _clientSecret;
+  static String? get clientSecret => _clientSecret;
+
+  /// Initializes NAVER Cloud Platform API credentials.
+  ///
+  /// Throws an [ArgumentError] if [clientId] or [clientSecret] is empty.
+  static void init({required String clientId, required String clientSecret}) {
+    if (clientId.isEmpty || clientSecret.isEmpty) {
+      throw ArgumentError("Client ID and client secret must not be empty.");
+    }
     _clientId = clientId;
     _clientSecret = clientSecret;
   }

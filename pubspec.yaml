@@ -1,0 +1,13 @@
+name: dart_naver_without_login_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+workspace:
+  - packages/dart_naver_without_login_common
+  - packages/dart_naver_papago
+  - packages/dart_naver_clova_face_recognition
+
+dev_dependencies:
+  lints: ^6.1.0

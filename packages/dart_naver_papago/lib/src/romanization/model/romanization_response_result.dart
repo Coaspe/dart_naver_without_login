@@ -12,6 +12,6 @@ class RomanizationResponseResult {
   final String sFirstName;
   final List<RomanizationResponseItem> aItems;
 
-  factory RomanizationResponseResult.fromJson(json) =>
+  factory RomanizationResponseResult.fromJson(Map<String, dynamic> json) =>
       _$RomanizationResponseResultFromJson(json);
 }

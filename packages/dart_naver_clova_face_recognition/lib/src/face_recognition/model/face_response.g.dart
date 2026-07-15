@@ -7,8 +7,8 @@ part of 'face_response.dart';
 // **************************************************************************
 
 FaceResponse _$FaceResponseFromJson(Map<String, dynamic> json) => FaceResponse(
-      info: FaceResponseInfo.fromJson(json['info']),
-      faces: (json['faces'] as List<dynamic>)
-          .map((e) => FaceResponseFace.fromJson(e))
-          .toList(),
-    );
+  info: FaceResponseInfo.fromJson(json['info'] as Map<String, dynamic>),
+  faces: (json['faces'] as List<dynamic>)
+      .map((e) => FaceResponseFace.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);

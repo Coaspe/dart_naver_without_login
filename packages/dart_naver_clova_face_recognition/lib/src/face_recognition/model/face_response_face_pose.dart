@@ -19,18 +19,14 @@ enum FacePose {
 }
 
 @JsonSerializable(createToJson: false)
-@JsonSerializable(createToJson: false)
 class FaceResponseFacePose {
-  const FaceResponseFacePose({
-    required this.value,
-    required this.confidence,
-  });
+  const FaceResponseFacePose({required this.value, required this.confidence});
   final FacePose value;
   final double confidence;
 
   @override
   String toString() => '{ value: ${value.name}, confidence: $confidence }';
 
-  factory FaceResponseFacePose.fromJson(json) =>
+  factory FaceResponseFacePose.fromJson(Map<String, dynamic> json) =>
       _$FaceResponseFacePoseFromJson(json);
 }

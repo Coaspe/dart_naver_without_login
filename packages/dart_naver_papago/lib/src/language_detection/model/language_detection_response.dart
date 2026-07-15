@@ -8,6 +8,6 @@ class LanguageDetectionResponse {
   const LanguageDetectionResponse({required this.langCode});
   final LangCode langCode;
 
-  factory LanguageDetectionResponse.fromJson(json) =>
+  factory LanguageDetectionResponse.fromJson(Map<String, dynamic> json) =>
       _$LanguageDetectionResponseFromJson(json);
 }

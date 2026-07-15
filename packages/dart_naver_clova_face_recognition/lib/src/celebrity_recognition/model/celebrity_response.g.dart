@@ -8,8 +8,10 @@ part of 'celebrity_response.dart';
 
 CelebrityResponse _$CelebrityResponseFromJson(Map<String, dynamic> json) =>
     CelebrityResponse(
-      info: CelebrityResponseInfo.fromJson(json['info']),
+      info: CelebrityResponseInfo.fromJson(
+        json['info'] as Map<String, dynamic>,
+      ),
       faces: (json['faces'] as List<dynamic>)
-          .map((e) => CelebrityResponseFace.fromJson(e))
+          .map((e) => CelebrityResponseFace.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

@@ -1,16 +1,25 @@
 # dart_naver_without_login_common
-An unofficial package contains common features for Naver apis that do not require login in Dart language.
-This pacakge is just a supplementary pacakge for other pacakges. So it doest not contains any api call.
 
-## Requirements
+Shared authentication and HTTP utilities for the unofficial
+`dart_naver_papago` and `dart_naver_clova_face_recognition` packages.
 
-Here is what you need to use the Dart SDK:
+Use `NaverWithoutLoginApi` for APIs registered through NAVER Developers:
 
-- Dart 2.19.0 or higher
+```dart
+NaverWithoutLoginApi.init(
+  clientId: developersClientId,
+  clientSecret: developersClientSecret,
+);
+```
 
-## pub.dev
-- [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
-- [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
-- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
+Use `NaverCloudApi` for APIs registered through NAVER Cloud Platform:
 
-Documentation comment will be added gradually 😀
+```dart
+NaverCloudApi.init(
+  clientId: cloudClientId,
+  clientSecret: cloudClientSecret,
+);
+```
+
+Applications normally depend on one of the feature packages instead of using
+this package directly.

@@ -15,5 +15,6 @@ class CelebrityResponse {
     return total;
   }
 
-  factory CelebrityResponse.fromJson(json) => _$CelebrityResponseFromJson(json);
+  factory CelebrityResponse.fromJson(Map<String, dynamic> json) =>
+      _$CelebrityResponseFromJson(json);
 }

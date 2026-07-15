@@ -1,46 +1,27 @@
 # dart_naver_clova_face_recognition
-An unofficial package for using Naver Clova face recognition, celebrity recognition.
 
-- Naver Clova face recognition API
-    - Celebrity recognition
-    - Face recognition
+An unofficial Dart client for NAVER CLOVA celebrity and face recognition.
 
 ## Requirements
 
-Here is what you need to use the Dart SDK:
+- Dart 3.11 or later.
+- An application with CLOVA Face Recognition enabled at
+  [NAVER Developers](https://developers.naver.com/main/).
+- Images no larger than 2MB.
 
-- Dart 2.19.0 or higher
-
-## Exmaple
-
-First, generate [Naver client id and client secret](https://developers.naver.com/main/).
-
-Initialize `NaverWithoutLoginApi` with your API key.
+## Usage
 
 ```dart
-NaverWithoutLoginApi.init(clientId: clientId, clientSecret: clientSecret)
-```
-Use `APIname.queryFunction` form to call query function.
+NaverWithoutLoginApi.init(
+  clientId: developersClientId,
+  clientSecret: developersClientSecret,
+);
 
-You can check [available API](https://developers.naver.com/docs/common/openapiguide/).
+final celebrity = await CelebrityRecognition.recognizeCelebrity(imageBytes);
+print(celebrity.faces.first.celebrity.value);
 
-```dart
-/// Recognize celebrity with given Uint8List image.
-///
-/// Returns CelebrityResponse
-final result = await CelebrityRecognition.recognizeCelebrity(await io.File('your-image-path').readAsBytes())
-print(result.runtimeType); // Print CelebrityResponse
-
-/// Recognize face with given Uint8List image.
-///
-/// Returns FaceResponse.
-final result = await FaceRecognition.recognizeFace(await io.File('your-image-path').readAsBytes());
-print(result.runtimeType); // Print FaceResponse
+final face = await FaceRecognition.recognizeFace(imageBytes);
+print(face.faces.first.emotion.value);
 ```
 
-## pub.dev
-- [dart_naver_papago](https://pub.dev/packages/dart_naver_papago)
-- [dart_naver_clova_face_recognition](https://pub.dev/packages/dart_naver_clova_face_recognition)
-- [dart_naver_without_login_common](https://pub.dev/packages/dart_naver_without_login_common)
-
-Documentation comment will be added gradually 😀
+The package is not endorsed by NAVER.

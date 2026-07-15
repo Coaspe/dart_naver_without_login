@@ -7,19 +7,20 @@ part of 'papago_response_result.dart';
 // **************************************************************************
 
 PapagoResponseResult _$PapagoResponseResultFromJson(
-        Map<String, dynamic> json) =>
-    PapagoResponseResult(
-      srcLangType: $enumDecode(_$LangCodeEnumMap, json['srcLangType']),
-      tarLangType: $enumDecode(_$LangCodeEnumMap, json['tarLangType']),
-      translatedText: json['translatedText'] as String,
-      engineType: json['engineType'] as String?,
-      pivot: json['pivot'] as String?,
-      dict: json['dict'] as String?,
-      tarDict: json['tarDict'] as String?,
-      modelVer: json['modelVer'] as String?,
-    );
+  Map<String, dynamic> json,
+) => PapagoResponseResult(
+  srcLangType: $enumDecode(_$LangCodeEnumMap, json['srcLangType']),
+  tarLangType: $enumDecode(_$LangCodeEnumMap, json['tarLangType']),
+  translatedText: json['translatedText'] as String,
+  engineType: json['engineType'] as String?,
+  pivot: json['pivot'] as String?,
+  dict: json['dict'] as String?,
+  tarDict: json['tarDict'] as String?,
+  modelVer: json['modelVer'] as String?,
+);
 
 const _$LangCodeEnumMap = {
+  LangCode.auto: 'auto',
   LangCode.ko: 'ko',
   LangCode.ja: 'ja',
   LangCode.zhCN: 'zh-CN',
@@ -37,5 +38,6 @@ const _$LangCodeEnumMap = {
   LangCode.th: 'th',
   LangCode.ru: 'ru',
   LangCode.it: 'it',
+  LangCode.hi: 'hi',
   LangCode.unk: 'unk',
 };

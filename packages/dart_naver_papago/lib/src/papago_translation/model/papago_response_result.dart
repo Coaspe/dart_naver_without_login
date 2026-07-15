@@ -30,6 +30,6 @@ class PapagoResponseResult {
   final String? tarDict;
   final String? modelVer;
 
-  factory PapagoResponseResult.fromJson(json) =>
+  factory PapagoResponseResult.fromJson(Map<String, dynamic> json) =>
       _$PapagoResponseResultFromJson(json);
 }

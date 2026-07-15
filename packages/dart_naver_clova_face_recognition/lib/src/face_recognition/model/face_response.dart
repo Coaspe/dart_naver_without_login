@@ -6,14 +6,12 @@ part 'face_response.g.dart';
 
 @JsonSerializable(createToJson: false)
 class FaceResponse {
-  const FaceResponse({
-    required this.info,
-    required this.faces,
-  });
+  const FaceResponse({required this.info, required this.faces});
   final FaceResponseInfo info;
   final List<FaceResponseFace> faces;
   @override
   String toString() =>
       '{ info: ${info.toString()}, faces: ${faces.toString()} }';
-  factory FaceResponse.fromJson(json) => _$FaceResponseFromJson(json);
+  factory FaceResponse.fromJson(Map<String, dynamic> json) =>
+      _$FaceResponseFromJson(json);
 }

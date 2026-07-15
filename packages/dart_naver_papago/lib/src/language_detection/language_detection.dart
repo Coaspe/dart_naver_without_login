@@ -1,4 +1,5 @@
 import 'package:dart_naver_papago/dart_naver_papago.dart';
+import 'package:http/http.dart' as http;
 
 class LanguageDetection {
   /// Detects the language of the given [text] using the Naver Papago API.
@@ -14,12 +15,32 @@ class LanguageDetection {
   /// LanguageDetectionResponse response = await LanguageDetection.detectLanguage(text);
   /// print(response.language);
   /// ```
-  static Future<LanguageDetectionResponse> detectLanguage(String text,
-      {Map<String, String>? headers}) async {
-    final body = <String, String>{"query": text};
+  static Future<LanguageDetectionResponse> detectLanguage(
+    String text, {
+    Map<String, String>? headers,
+    http.Client? client,
+  }) async {
+    if (text.isEmpty || text.runes.length > 5000) {
+      throw ArgumentError.value(
+        text,
+        'text',
+        'Text must contain between 1 and 5000 characters.',
+      );
+    }
+
+    final body = <String, dynamic>{"query": text};
     final message = await ApiUtil.requestApiWithoutLogin(
-        ServerHost.languageDetection, LanguageDetectionResponse.fromJson,
-        requestMethod: RequestMethod.post, headers: headers, body: body);
+      ServerHost.languageDetection,
+      LanguageDetectionResponse.fromJson,
+      requestMethod: RequestMethod.post,
+      authType: ApiAuthType.naverCloud,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        ...?headers,
+      },
+      body: body,
+      client: client,
+    );
     return message;
   }
 }
