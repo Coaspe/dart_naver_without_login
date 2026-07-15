@@ -1,6 +1,6 @@
 name: dart_naver_without_login_common
 description: Shared authentication and HTTP utilities for unofficial NAVER API packages.
-version: 0.1.0
+version: 0.2.0
 repository: https://github.com/Coaspe/dart_naver_without_login
 
 environment:
@@ -9,6 +9,7 @@ environment:
 resolution: workspace
 
 dependencies:
+  crypto: ^3.0.7
   http: ^1.6.0
 
 dev_dependencies:

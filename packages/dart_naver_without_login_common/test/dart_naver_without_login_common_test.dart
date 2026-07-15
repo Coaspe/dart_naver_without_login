@@ -12,6 +12,10 @@ void main() {
       clientSecret: 'developers-secret',
     );
     NaverCloudApi.init(clientId: 'cloud-id', clientSecret: 'cloud-secret');
+    NaverCloudIamApi.init(
+      accessKey: 'iam-access-key',
+      secretKey: 'iam-secret-key',
+    );
   });
 
   test('rejects empty credentials', () {
@@ -23,6 +27,32 @@ void main() {
       () => NaverCloudApi.init(clientId: 'id', clientSecret: ''),
       throwsArgumentError,
     );
+    expect(
+      () => NaverCloudIamApi.init(accessKey: '', secretKey: 'secret'),
+      throwsArgumentError,
+    );
+  });
+
+  test('creates a deterministic NAVER Cloud IAM signature', () {
+    final signature = NaverCloudIamApi.createSignature(
+      method: 'GET',
+      uri: Uri.parse('https://example.com/glossary/v1?page=1'),
+      timestamp: '1700000000000',
+    );
+
+    expect(signature, isNotEmpty);
+    expect(base64Decode(signature), hasLength(32));
+  });
+
+  test('returns binary response bytes', () async {
+    final client = MockClient((_) async => http.Response.bytes([1, 2, 3], 200));
+
+    final result = await ApiUtil.requestBytes(
+      'https://example.com/image',
+      client: client,
+    );
+
+    expect(result, [1, 2, 3]);
   });
 
   test('sends NAVER Developers credentials with a JSON request', () async {

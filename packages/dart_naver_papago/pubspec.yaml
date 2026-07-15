@@ -1,6 +1,6 @@
 name: dart_naver_papago
-description: An unofficial Dart client for NAVER Papago translation, language detection, and name romanization APIs.
-version: 0.1.0
+description: An unofficial Dart client for every NAVER Papago Translation, Glossary, Image Translation, language detection, and name romanization API.
+version: 0.2.0
 repository: https://github.com/Coaspe/dart_naver_without_login
 
 environment:
@@ -9,7 +9,7 @@ environment:
 resolution: workspace
 
 dependencies:
-  dart_naver_without_login_common: ^0.1.0
+  dart_naver_without_login_common: ^0.2.0
   http: ^1.6.0
   json_annotation: ^4.12.0
 

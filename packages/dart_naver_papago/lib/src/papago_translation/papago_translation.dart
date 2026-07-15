@@ -17,6 +17,9 @@ class PapagoTranslation {
     LangCode src,
     LangCode tar,
     String text, {
+    String? glossaryKey,
+    String? replaceInfo,
+    bool? honorific,
     Map<String, String>? headers,
     http.Client? client,
   }) async {
@@ -38,6 +41,9 @@ class PapagoTranslation {
       'target': tar.valueToString,
       'text': text,
     };
+    if (glossaryKey != null) body['glossaryKey'] = glossaryKey;
+    if (replaceInfo != null) body['replaceInfo'] = replaceInfo;
+    if (honorific != null) body['honorific'] = honorific;
     final message = await ApiUtil.requestApiWithoutLogin(
       ServerHost.papagoTranslation,
       PapagoResponse.fromJson,

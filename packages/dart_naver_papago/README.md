@@ -1,7 +1,8 @@
 # dart_naver_papago
 
-An unofficial Dart client for NAVER Papago text translation, language detection,
-and Korean-name romanization.
+An unofficial Dart client covering every currently documented NAVER Cloud
+Papago Translation and Image Translation operation, plus Korean-name
+romanization.
 
 ## Requirements
 
@@ -34,6 +35,22 @@ print(translation.getText);
 
 final detected = await LanguageDetection.detectLanguage('안녕하세요');
 print(detected.langCode);
+```
+
+The package also supports:
+
+- text options (`glossaryKey`, `replaceInfo`, and `honorific`)
+- document translation, status, and download
+- website HTML translation
+- glossary create/upload/download/list/delete
+- glossary term add/list/update/delete
+- image-to-text and image-to-image translation
+
+Glossary management uses NAVER Cloud IAM credentials:
+
+```dart
+NaverCloudIamApi.init(accessKey: accessKey, secretKey: secretKey);
+final glossary = await GlossaryApi.create('용어집');
 ```
 
 Use `LangCode.auto` as the source language to let Papago detect it as part of a

@@ -1,3 +1,9 @@
+## 0.2.0
+
+- Add NAVER Cloud IAM HMAC authentication.
+- Add PATCH, raw response, UTF-8 text, binary, and general multipart requests.
+- Preserve existing NAVER Developers and NAVER Cloud application authentication.
+
 ## 0.1.0
 
 - Require Dart 3.11 and update `http` to 1.6.0.

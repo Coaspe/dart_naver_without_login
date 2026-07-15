@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Use the expanded common transport package while preserving the existing API.
+
 ## 0.1.0
 
 - Require Dart 3.11 and update dependencies.

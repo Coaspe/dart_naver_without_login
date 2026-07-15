@@ -1,0 +1,13 @@
+name: dart_naver_web_tools
+description: Dart helpers for the official NAVER Share, Open Main, and NAVER app URL scheme integrations.
+version: 0.1.0
+repository: https://github.com/Coaspe/dart_naver_without_login
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dev_dependencies:
+  lints: ^6.1.0
+  test: ^1.31.2

@@ -25,3 +25,6 @@ print(face.faces.first.emotion.value);
 ```
 
 The package is not endorsed by NAVER.
+
+This package covers both operations in the current official CFR catalog:
+celebrity recognition and face/attribute detection.

@@ -10,3 +10,8 @@
 ## 1.0.0
 
 - Initial repository version.
+## 0.2.0
+
+- Cover the complete current NAVER non-login API catalog with product packages.
+- Expand Papago to every currently documented Translation, Glossary, and Image Translation operation.
+- Add Search, DataLab, CAPTCHA, Share, and Open Main packages.

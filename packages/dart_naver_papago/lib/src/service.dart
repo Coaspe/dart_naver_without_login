@@ -1,5 +1,9 @@
 export 'papago_translation/papago_translation.dart';
 export 'language_detection/language_detection.dart';
 export 'romanization/romanization.dart';
+export 'document_translation/document_translation.dart';
+export 'glossary/glossary_api.dart';
+export 'image_translation/image_translation.dart';
+export 'website_translation/website_translation.dart';
 export 'constants.dart';
 export 'enums.dart';

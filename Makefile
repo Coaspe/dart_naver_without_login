@@ -1,4 +1,4 @@
-PACKAGES := dart_naver_without_login_common dart_naver_papago dart_naver_clova_face_recognition
+PACKAGES := dart_naver_without_login_common dart_naver_papago dart_naver_clova_face_recognition dart_naver_search dart_naver_datalab dart_naver_captcha dart_naver_web_tools
 GENERATED_PACKAGES := dart_naver_papago dart_naver_clova_face_recognition
 
 .PHONY: get generate format analyze test check publish-dry-run

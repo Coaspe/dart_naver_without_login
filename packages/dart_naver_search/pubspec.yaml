@@ -1,0 +1,17 @@
+name: dart_naver_search
+description: An unofficial Dart client for every current NAVER non-login Search API.
+version: 0.1.0
+repository: https://github.com/Coaspe/dart_naver_without_login
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  dart_naver_without_login_common: ^0.2.0
+  http: ^1.6.0
+
+dev_dependencies:
+  lints: ^6.1.0
+  test: ^1.31.2

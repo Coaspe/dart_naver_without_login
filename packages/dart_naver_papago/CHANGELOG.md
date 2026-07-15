@@ -1,3 +1,11 @@
+## 0.2.0
+
+- Support all text translation options.
+- Add document translation, status, and result download.
+- Add website translation.
+- Add every glossary and glossary-term management API with IAM signing.
+- Add image-to-text and image-to-image translation with complete response models.
+
 ## 0.1.0
 
 - Require Dart 3.11 and update dependencies.
